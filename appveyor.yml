@@ -1,0 +1,17 @@
+version: 1.0.{build}
+
+image: Visual Studio 2022
+
+configuration: Release
+platform: Win32
+
+build_script:
+  - cmd: msbuild SelectFolder.vcxproj /m /p:Configuration=Release /p:Platform=Win32
+
+after_build:
+  - cmd: if not exist artifact mkdir artifact
+  - cmd: copy /Y bin\SelectFolder.dll artifact\SelectFolder.dll
+
+artifacts:
+  - path: artifact\SelectFolder.dll
+    name: SelectFolder-Win32
